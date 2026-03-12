@@ -6,3 +6,4 @@ meat
 """""
 print(name_dog)
 print(dog_eat)
+print( ord ("D")   )
