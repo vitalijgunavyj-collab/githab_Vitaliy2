@@ -42,7 +42,6 @@ def school_trip():
     # 🎉 Знижка (через окремий файл)
     total_cost, discount = apply_discount(total_people, total_cost)
 
-    # Вивід
     put_markdown("## 📊 Результат")
     put_text(f"👥 Людей: {total_people}")
 
