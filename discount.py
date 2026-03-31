@@ -8,3 +8,4 @@ def apply_discount(total_people, total_cost):
         discount = 0
 
     return total_cost, discount
+#Вивід
