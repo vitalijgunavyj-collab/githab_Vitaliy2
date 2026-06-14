@@ -1,56 +1,44 @@
-from pywebio.input import input, slider
-from pywebio.output import put_markdown, put_text, put_image
+from car import Car
 
-import pictures
-import prices
-from discount import DISCOUNT_TRIGGER_COST, DISCOUNT_PERCENTAGE
+car1 = Car("BMW X5", 2, "Віталій", 15)
+car2 = Car("Audi A6", 12, "Олександр", 5)
 
-# Header
-put_markdown("# 🍽️ Ресторан \"Смачна їжа\"")
-put_markdown("---")
+print("===== ID автомобілів =====")
+print(car1.car_id)
+print(car2.car_id)
 
-# MENU
-put_markdown("## 📋 Menu:")
+print("\n===== __dict__ =====")
+print(car1.__dict__)
+print(car2.__dict__)
 
-put_image(pictures.PICTURE_PIZZA)
-put_text(f"Pizza by {prices.PRICE_PIZZA} grn")
+print("\n===== Інформація про авто =====")
+print(car1)
+print()
+print(car2)
 
-put_image(pictures.PICTURE_CAVIAR, width="300")
-put_text(f"Pizza by {prices.PRICE_CAVIAR_10g} grn / 10g")
+print("\n===== Зміна кількості бензину =====")
+car1.fuel = 25
+print(f"У {car1.model} тепер {car1.fuel} л бензину")
 
-# Order placing
-put_markdown("## Ordering:")
+print("\n===== Заправка =====")
+car2.refuel(20)
 
-quantity_pizza = input("How many pizza do you like?", type="number", min=0, value=1)
-quantity_caviar_g = slider(label="How much caviar do you like?", min_value=0, max_value=1000, value=10 , step=10)
-quantity_caviar = quantity_caviar_g / 10
+print("\n===== Стан автомобілів =====")
+print(f"{car1.model}: {car1.condition}")
+print(f"{car2.model}: {car2.condition}")
 
-# calculation
-cost_pizza = quantity_pizza * prices.PRICE_PIZZA
-cost_caviar = quantity_caviar * prices.PRICE_CAVIAR_10g
-total_cost = cost_caviar + cost_pizza
+print("\n===== Статус пального =====")
+print(f"{car1.model}: {car1.fuel_status}")
+print(f"{car2.model}: {car2.fuel_status}")
 
-discount_summa = 0
-if total_cost >= DISCOUNT_TRIGGER_COST:
-    discount_summa = round(total_cost * DISCOUNT_PERCENTAGE / 100, 0)
+print("\n===== Порівняння кількості бензину =====")
+if car1.fuel > car2.fuel:
+    print(f"Більше бензину має {car1.model}")
+elif car2.fuel > car1.fuel:
+    print(f"Більше бензину має {car2.model}")
+else:
+    print("Кількість бензину однакова")
 
-final_cost = total_cost - discount_summa
 
-# ORDER
-put_markdown("## RESULT:")
-
-if cost_pizza:
-    put_text(f"🍕Pizza: {quantity_pizza} / {prices.PRICE_PIZZA} grn = {cost_pizza}")
-if cost_caviar:
-    put_text(f"🍕cost_caviar: {quantity_caviar_g} / {prices.PRICE_CAVIAR_10g} grn/10g = {cost_caviar}")
-
-if total_cost:
-    put_text(f"Total cost: {total_cost}")
-
-if discount_summa:
-    put_text(f"discount_summa : {discount_summa}")
-    put_text(f"))))))))))))))")
-
-put_text(f"final_cost: {final_cost}")
 
 
